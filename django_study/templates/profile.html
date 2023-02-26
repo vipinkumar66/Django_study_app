@@ -1,0 +1,21 @@
+{%extends 'layout.html' %}
+{% block content %}
+  {% load static%}
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="row row-cols-1 justify-content-center mb-3">
+          <h3 class="text-warning fw-bold fst-italic">Heyy {{request.user}}. Welcome to Your profile!</h3>
+          <img src='{% static "images/xyz.jpg" %}'' class="img-thumbnail" alt="...">
+          <strong class="text-primary">@{{request.user.username}}</strong>
+        </div>
+        <div class="row">
+          {% include 'feed_component.html' %}
+        </div> 
+      </div>
+      <div class="col-sm-3">
+        {% include 'activity_component.html' %}
+      </div>
+    </div>
+  </div>
+{% endblock content %}

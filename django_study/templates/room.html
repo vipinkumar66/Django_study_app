@@ -1,0 +1,71 @@
+{%extends 'layout.html'%}
+{%block content%}
+<div class="container d-flex">
+  <!-- This is for room details -->
+  <div class="container">
+    <div class="card bg-dark text-white">
+      <h5 class="card-header">{{room.host}}</h5>
+      <div class="card-body">
+        <h5 class="card-title">{{room.name}}</h5>
+        <p class="card-text">{{room.description}}</p>
+        {% if room.host == request.user %}
+          <a href="{% url 'update_room' room.id %}" class="btn btn-primary btn-sm">Update Room</a>
+          <button type="button" class="btn btn-danger btn-sm " data-bs-toggle="modal" data-bs-target="#exampleModal">Delete Room</button>
+        {%endif%}
+      </div>
+    </div>
+    <!-- for comments -->
+    <div class="container-fluid mt-5">
+      <div class="row">
+        <h3 class="fst-italic">Comments</h3>
+      </div>
+    </div>
+    <!-- This is for all the comments and the comment section form -->
+    <div class="container mt-5">
+      {%for message in room_messages%}
+      <div class="mb-2">
+        <small>{{message.user}} --Posted {{message.created|timesince}} ago</small>
+        <p>{{message}}</p>
+        <!-- {% if request.user == message.user %}
+          <button type="button" class="btn btn-danger btn-sm " data-bs-toggle="modal" data-bs-target="#messageModal">Delete Room</button>
+        {% endif %} -->
+        <hr>
+      </div>
+      {%endfor%}
+      {% if request.user.is_authenticated %}
+        <div class="form-floating mb-5 ">
+          <form method="POST" action="" >
+            {%csrf_token%}
+            <input type="text" class="form-control" name="body" placeholder="Leave a comment here" ></input>
+          </form>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="container">
+    <h2>Participants</h2>
+    {% for user in participants%}
+      <p>{{user}}</p>
+    {%endfor%}
+  </div>
+  <!-- MODAL -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Are you sure you want to delete it?</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+          <form method="POST", action="{% url 'delete_room' room.id %}">
+            {%csrf_token%}
+            <input class="btn btn-danger" type="submit" value="Delete">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{%endblock content%}

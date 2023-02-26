@@ -1,0 +1,5 @@
+<div class="col-sm-2">
+  {% for topic in topics %}
+  <a href="{%url 'home'%}?q={{topic.name}}"><h4>{{topic.name}}</h4></a>
+  {% endfor %}
+</div>

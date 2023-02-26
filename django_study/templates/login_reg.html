@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+{% if page == 'login' %}
+  <div class="container-fluid">
+    <form method="POST" action="">
+      {% csrf_token %}
+      <label for="exampleFormControlInput1" class="form-label">username</label>
+      <input type="username" placeholder="Enter your useranme" name="username">
+      <label for="inputPassword" class="form-label">Password</label>
+      <input type="password" placeholder="Enter your password" name="password">
+      <input type="submit" value="Login">
+    </form>
+    <p>Haven't signed up yet?</p>
+    <a href="{% url 'register' %}">Signup here</a>
+  </div>
+{% else %}
+  <div class="container-fluid">
+    <form method="POST" action="">
+      {% csrf_token %}
+      {{form.as_p}}
+      <input type="submit" value="Register">
+    </form>
+    <p>Already have an account?</p>
+    <a href="{% url 'login_reg' %}">SignIn here</a>
+{% endif %}
+</div>
+
+{% endblock %}

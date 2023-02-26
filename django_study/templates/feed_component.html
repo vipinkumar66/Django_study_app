@@ -1,0 +1,12 @@
+{% for dat in rooms %}
+  <div class="list-group mb-5" >
+    <a href="{% url 'room' dat.id%}" class="list-group-item list-group-item-action" aria-current="true">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{ dat.host }}</h5>
+        <small>{{ dat.updated }}</small>
+      </div>
+      <p class="mb-1">{{ dat.name }}</p>
+      <small>{{ dat.topic }}</small>
+    </a>
+  </div>
+{% endfor %}

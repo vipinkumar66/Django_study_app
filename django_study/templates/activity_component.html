@@ -1,0 +1,16 @@
+<div class="card">
+  <div class="card-header mb-2">
+    <h3 class="fw-bold fst-italic">RECENT ACTIVITIES</h3>
+  </div>
+  {% for message in all_messages %}
+    <div class="card m-2">
+      <div class="card-body">
+        <card class="text">
+          <small>{{message.user}} {{message.created|timesince}}</small>
+          <p>{{message.body}}</p>
+          <small class="text-primary fst-italic">replied to {{message.room}}</small>
+        </card>
+      </div>
+    </div>
+  {% endfor %}
+</div>
